@@ -126,7 +126,7 @@ function setActiveTab(tabId) {
     });
     
     // Save to localStorage
-    localStorage.setItem('crystalTape_activeTab', tabId);
+    localStorage.setItem('rollIt_activeTab', tabId);
 }
 
 tabBtns.forEach(btn => {
@@ -136,9 +136,9 @@ tabBtns.forEach(btn => {
 });
 
 // Restore Tab on Load
-window.addEventListener('DOMContentLoaded', () => {
-    const savedTab = localStorage.getItem('crystalTape_activeTab') || 'large-core';
-    setActiveTab(savedTab);
+window.addEventListener('load', () => {
+    const savedTab = localStorage.getItem('rollIt_activeTab') || 'large-core';
+    setActiveTab(savedTab, false); // Don't animate on initial load
 });
 
 // Improved 3D Tilt Effect
