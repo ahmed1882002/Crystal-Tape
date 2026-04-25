@@ -218,50 +218,57 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Carousel Navigation Logic
-const carouselNavs = document.querySelectorAll('.carousel-nav button');
-const carousels = document.querySelectorAll('.carousel-container');
+// Carousel System (Auto-scroll + Navigation)
+const carouselConfigs = [
+    { id: 'large-core-grid', speed: 3000 },
+    { id: 'small-core-grid', speed: 3200 },
+    { id: 'features-grid', speed: 3500 },
+    { id: 'industries-grid', speed: 3800 }
+];
 
-carouselNavs.forEach(btn => {
-    btn.addEventListener('click', () => {
-        const targetId = btn.getAttribute('data-target');
-        const container = document.getElementById(targetId);
-        if (!container) return;
+carouselConfigs.forEach(config => {
+    const container = document.getElementById(config.id);
+    if (!container) return;
+
+    let isPaused = false;
+    
+    // Auto-scroll function
+    const autoScroll = () => {
+        if (isPaused) return;
         
         const scrollAmount = container.firstElementChild.offsetWidth + 24;
+        const maxScroll = container.scrollWidth - container.offsetWidth;
         
-        if (btn.classList.contains('nav-prev')) {
-            container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        if (container.scrollLeft >= maxScroll - 10) {
+            container.scrollTo({ left: 0, behavior: 'smooth' });
         } else {
             container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
         }
-    });
-});
-
-// Dynamic Auto-Play for Carousels
-carousels.forEach(carousel => {
-    let isMoving = true;
-    let scrollDirection = 1;
-    
-    const autoScroll = () => {
-        if (!isMoving) return;
-        
-        const maxScroll = carousel.scrollWidth - carousel.clientWidth;
-        if (carousel.scrollLeft >= maxScroll - 1) {
-            scrollDirection = -1;
-        } else if (carousel.scrollLeft <= 0) {
-            scrollDirection = 1;
-        }
-        
-        carousel.scrollBy({ left: scrollDirection * 1, behavior: 'auto' });
     };
 
-    // Pause on interaction
-    carousel.addEventListener('mouseenter', () => isMoving = false);
-    carousel.addEventListener('mouseleave', () => isMoving = true);
-    carousel.addEventListener('touchstart', () => isMoving = false);
-    carousel.addEventListener('touchend', () => isMoving = true);
+    let scrollInterval = setInterval(autoScroll, config.speed);
 
-    // Subtle continuous movement
-    setInterval(autoScroll, 50);
+    // Pause on interaction
+    container.addEventListener('mouseenter', () => isPaused = true);
+    container.addEventListener('mouseleave', () => isPaused = false);
+    container.addEventListener('touchstart', () => isPaused = true);
+    container.addEventListener('touchend', () => {
+        setTimeout(() => isPaused = false, 2000);
+    });
+
+    // Button controls
+    const navButtons = document.querySelectorAll(`.carousel-nav button[data-target="${config.id}"]`);
+    navButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const scrollAmount = container.firstElementChild.offsetWidth + 24;
+            if (btn.classList.contains('nav-prev')) {
+                container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            } else {
+                container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            }
+            // Reset interval on manual click
+            clearInterval(scrollInterval);
+            scrollInterval = setInterval(autoScroll, config.speed);
+        });
+    });
 });
