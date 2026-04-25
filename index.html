@@ -53,7 +53,7 @@
                 </div>
                 <div class="hero-visual">
                     <div class="tape-roll-container">
-                        <img src="assets/hero.png" alt="Crystal Tape Roll" class="hero-image floating">
+                        <img src="assets/double_face_hero.png" alt="Double Face Tape" class="hero-image floating">
                         <div class="glass-glow"></div>
                     </div>
                 </div>
@@ -80,8 +80,13 @@
                         <button class="tab-btn" data-tab="small-core">ميزان الكور الصغير (45 ج.م)</button>
                     </div>
 
+                <div class="carousel-wrapper">
+                    <div class="carousel-nav">
+                        <button class="nav-prev" data-target="large-core-grid"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+                        <button class="nav-next" data-target="large-core-grid"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
+                    </div>
                     <div class="tab-content active" id="large-core">
-                        <div class="product-grid">
+                        <div class="product-grid carousel-container" id="large-core-grid">
                             <!-- Large Core Cards -->
                             <div class="product-card" data-tilt>
                                 <div class="card-badge">الأكثر طلباً</div>
@@ -148,7 +153,7 @@
                     </div>
 
                     <div class="tab-content" id="small-core">
-                        <div class="product-grid">
+                        <div class="product-grid carousel-container" id="small-core-grid">
                             <!-- Small Core Cards -->
                             <div class="product-card" data-tilt>
                                 <div class="card-img-wrapper">
@@ -213,6 +218,7 @@
                         </div>
                     </div>
                 </div>
+                </div>
             </div>
         </section>
 
@@ -222,34 +228,40 @@
                 <div class="section-header">
                     <h2 class="section-title">مميزاتنا</h2>
                 </div>
-                <div class="features-grid">
-                    <div class="feature-item fade-up">
-                        <div class="feature-icon">
-                            <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                        </div>
-                        <h3>التصاق جبار</h3>
-                        <p>قوة التصاق تتحمل الظروف الشاقة والحرارة العالية.</p>
+                <div class="carousel-wrapper">
+                    <div class="carousel-nav">
+                        <button class="nav-prev" data-target="features-grid"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+                        <button class="nav-next" data-target="features-grid"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
                     </div>
-                    <div class="feature-item fade-up">
-                        <div class="feature-icon">
-                            <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12l4 6-10 12L2 9l4-6z"/></svg>
+                    <div class="features-grid carousel-container" id="features-grid">
+                        <div class="feature-item fade-up">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                            </div>
+                            <h3>التصاق جبار</h3>
+                            <p>قوة التصاق تتحمل الظروف الشاقة والحرارة العالية.</p>
                         </div>
-                        <h3>شفافية كريستالية</h3>
-                        <p>لا يترك أثراً أو تغييراً في لون الأسطح.</p>
-                    </div>
-                    <div class="feature-item fade-up">
-                        <div class="feature-icon">
-                            <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4v14a2 2 0 002 2h12a2 2 0 002-2v-5M9 15l3 3 7-7M17 3.5l3.5 3.5"/></svg>
+                        <div class="feature-item fade-up">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h12l4 6-10 12L2 9l4-6z"/></svg>
+                            </div>
+                            <h3>شفافية كريستالية</h3>
+                            <p>لا يترك أثراً أو تغييراً في لون الأسطح.</p>
                         </div>
-                        <h3>خيارات متعددة</h3>
-                        <p>نوفر جميع الأطوال من 200 إلى 600 يارد.</p>
-                    </div>
-                    <div class="feature-item fade-up">
-                        <div class="feature-icon">
-                            <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
+                        <div class="feature-item fade-up">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4v14a2 2 0 002 2h12a2 2 0 002-2v-5M9 15l3 3 7-7M17 3.5l3.5 3.5"/></svg>
+                            </div>
+                            <h3>خيارات متعددة</h3>
+                            <p>نوفر جميع الأطوال من 200 إلى 600 يارد.</p>
                         </div>
-                        <h3>استخدام صناعي</h3>
-                        <p>مثالي للمصانع والورش والطلبات الضخمة.</p>
+                        <div class="feature-item fade-up">
+                            <div class="feature-icon">
+                                <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
+                            </div>
+                            <h3>استخدام صناعي</h3>
+                            <p>مثالي للمصانع والورش والطلبات الضخمة.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -262,62 +274,68 @@
                     <h2 class="section-title">صناعات نخدمها</h2>
                     <p class="section-subtitle">حلول احترافية تناسب كافة القطاعات الصناعية والتجارية</p>
                 </div>
-                <div class="industries-grid">
-                    <div class="industry-card fade-up">
-                        <div class="industry-icon">
-                            <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 8l-9-4-9 4v8l9 4 9-4V8z"/><path d="M3 8l9 4 9-4M12 22V12"/></svg>
-                        </div>
-                        <h3>مصانع الكراتين</h3>
-                        <p>تغليف متين وموثوق للإنتاج الضخم</p>
+                <div class="carousel-wrapper">
+                    <div class="carousel-nav">
+                        <button class="nav-prev" data-target="industries-grid"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+                        <button class="nav-next" data-target="industries-grid"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></button>
                     </div>
-                    <div class="industry-card fade-up">
-                        <div class="industry-icon">
-                            <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.77 3.77z"/></svg>
+                    <div class="industries-grid carousel-container" id="industries-grid">
+                        <div class="industry-card fade-up">
+                            <div class="industry-icon">
+                                <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 8l-9-4-9 4v8l9 4 9-4V8z"/><path d="M3 8l9 4 9-4M12 22V12"/></svg>
+                            </div>
+                            <h3>مصانع الكراتين</h3>
+                            <p>تغليف متين وموثوق للإنتاج الضخم</p>
                         </div>
-                        <h3>الحدايد والمقابض</h3>
-                        <p>تثبيت وحماية للأدوات والمعدات</p>
-                    </div>
-                    <div class="industry-card fade-up">
-                        <div class="industry-icon">
-                            <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                        <div class="industry-card fade-up">
+                            <div class="industry-icon">
+                                <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.77 3.77z"/></svg>
+                            </div>
+                            <h3>الحدايد والمقابض</h3>
+                            <p>تثبيت وحماية للأدوات والمعدات</p>
                         </div>
-                        <h3>الصوب الزراعية</h3>
-                        <p>مثالي لصوب الخيار والصوب بشكل عام</p>
-                    </div>
-                    <div class="industry-card fade-up">
-                        <div class="industry-icon">
-                            <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 18v3h16v-3M4 10V3h16v7M12 10v8"/></svg>
+                        <div class="industry-card fade-up">
+                            <div class="industry-icon">
+                                <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                            </div>
+                            <h3>الصوب الزراعية</h3>
+                            <p>مثالي لصوب الخيار والصوب بشكل عام</p>
                         </div>
-                        <h3>الموبيليا والأثاث</h3>
-                        <p>تأمين الموبيليا أثناء التوزيع والنقل</p>
-                    </div>
-                    <div class="industry-card fade-up">
-                        <div class="industry-icon">
-                            <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                        <div class="industry-card fade-up">
+                            <div class="industry-icon">
+                                <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 18v3h16v-3M4 10V3h16v7M12 10v8"/></svg>
+                            </div>
+                            <h3>الموبيليا والأثاث</h3>
+                            <p>تأمين الموبيليا أثناء التوزيع والنقل</p>
                         </div>
-                        <h3>الأجهزة الكهربائية</h3>
-                        <p>تغليف الثلاجات والغسالات والقطع الحساسة</p>
-                    </div>
-                    <div class="industry-card fade-up">
-                        <div class="industry-icon">
-                            <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.38 3.46L16 5V2l-4 2-4-2v3L3.62 3.46a2 2 0 00-2.41 2.41l1.5 6a2 2 0 00.31.59L12 22l8.98-7.54a2 2 0 00.31-.59l1.5-6a2 2 0 00-2.41-2.41z"/></svg>
+                        <div class="industry-card fade-up">
+                            <div class="industry-icon">
+                                <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                            </div>
+                            <h3>الأجهزة الكهربائية</h3>
+                            <p>تغليف الثلاجات والغسالات والقطع الحساسة</p>
                         </div>
-                        <h3>الغزل والنسيج</h3>
-                        <p>حلول متكاملة لمصانع القماش والنسيج</p>
-                    </div>
-                    <div class="industry-card fade-up">
-                        <div class="industry-icon">
-                            <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2zm0 4a6 6 0 100 12 6 6 0 000-12z"/></svg>
+                        <div class="industry-card fade-up">
+                            <div class="industry-icon">
+                                <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.38 3.46L16 5V2l-4 2-4-2v3L3.62 3.46a2 2 0 00-2.41 2.41l1.5 6a2 2 0 00.31.59L12 22l8.98-7.54a2 2 0 00.31-.59l1.5-6a2 2 0 00-2.41-2.41z"/></svg>
+                            </div>
+                            <h3>الغزل والنسيج</h3>
+                            <p>حلول متكاملة لمصانع القماش والنسيج</p>
                         </div>
-                        <h3>مصانع الحلويات</h3>
-                        <p>تغليف آمن وصحي للمنتجات الغذائية</p>
-                    </div>
-                    <div class="industry-card fade-up">
-                        <div class="industry-icon">
-                            <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18.36 6.64a9 9 0 11-12.73 0M12 2v10"/></svg>
+                        <div class="industry-card fade-up">
+                            <div class="industry-icon">
+                                <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2zm0 4a6 6 0 100 12 6 6 0 000-12z"/></svg>
+                            </div>
+                            <h3>مصانع الحلويات</h3>
+                            <p>تغليف آمن وصحي للمنتجات الغذائية</p>
                         </div>
-                        <h3>الميكانيكا والمواتير</h3>
-                        <p>استخدامات شاقة في قطاع صيانة المحركات</p>
+                        <div class="industry-card fade-up">
+                            <div class="industry-icon">
+                                <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18.36 6.64a9 9 0 11-12.73 0M12 2v10"/></svg>
+                            </div>
+                            <h3>الميكانيكا والمواتير</h3>
+                            <p>استخدامات شاقة في قطاع صيانة المحركات</p>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -217,3 +217,51 @@ window.addEventListener('scroll', () => {
         header.style.background = 'rgba(255, 255, 255, 0.7)';
     }
 });
+
+// Carousel Navigation Logic
+const carouselNavs = document.querySelectorAll('.carousel-nav button');
+const carousels = document.querySelectorAll('.carousel-container');
+
+carouselNavs.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const targetId = btn.getAttribute('data-target');
+        const container = document.getElementById(targetId);
+        if (!container) return;
+        
+        const scrollAmount = container.firstElementChild.offsetWidth + 24;
+        
+        if (btn.classList.contains('nav-prev')) {
+            container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        } else {
+            container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+    });
+});
+
+// Dynamic Auto-Play for Carousels
+carousels.forEach(carousel => {
+    let isMoving = true;
+    let scrollDirection = 1;
+    
+    const autoScroll = () => {
+        if (!isMoving) return;
+        
+        const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+        if (carousel.scrollLeft >= maxScroll - 1) {
+            scrollDirection = -1;
+        } else if (carousel.scrollLeft <= 0) {
+            scrollDirection = 1;
+        }
+        
+        carousel.scrollBy({ left: scrollDirection * 1, behavior: 'auto' });
+    };
+
+    // Pause on interaction
+    carousel.addEventListener('mouseenter', () => isMoving = false);
+    carousel.addEventListener('mouseleave', () => isMoving = true);
+    carousel.addEventListener('touchstart', () => isMoving = false);
+    carousel.addEventListener('touchend', () => isMoving = true);
+
+    // Subtle continuous movement
+    setInterval(autoScroll, 50);
+});

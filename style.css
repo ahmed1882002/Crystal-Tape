@@ -350,10 +350,79 @@ section {
     display: block;
 }
 
+/* Carousel System */
+.carousel-wrapper {
+    position: relative;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.carousel-container {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    gap: 1.5rem;
+    padding: 1rem 0.5rem 2rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.carousel-container::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel-container > * {
+    flex: 0 0 300px;
+    scroll-snap-align: start;
+}
+
+.carousel-nav {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.nav-prev, .nav-next {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--off-white);
+    background: var(--white);
+    color: var(--green-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-prev:hover, .nav-next:hover {
+    background: var(--green-primary);
+    color: var(--white);
+}
+
+@media (max-width: 768px) {
+    .carousel-nav {
+        display: none;
+    }
+    .carousel-container > * {
+        flex: 0 0 85%;
+    }
+}
+
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 2rem;
+}
+
+.product-grid.carousel-container,
+.features-grid.carousel-container,
+.industries-grid.carousel-container {
+    display: flex !important;
 }
 
 .product-card {
