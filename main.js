@@ -298,3 +298,57 @@ carouselConfigs.forEach(config => {
         });
     });
 });
+
+// Product Modal / Lightbox Logic
+const modal = document.getElementById('product-modal');
+const modalImg = document.getElementById('modal-img');
+const modalTitle = document.getElementById('modal-title');
+const modalWeight = document.getElementById('modal-weight');
+const modalPrice = document.getElementById('modal-price');
+const modalRolls = document.getElementById('modal-rolls');
+const modalWaLink = document.getElementById('modal-wa-link');
+const modalClose = document.querySelector('.modal-close');
+const modalBackdrop = document.querySelector('.modal-backdrop');
+
+function openModal(card) {
+    const img = card.querySelector('.card-img').src;
+    const yards = card.querySelector('.card-yards').textContent;
+    const weight = card.querySelector('.card-weight').textContent;
+    const price = card.querySelector('.card-price').textContent;
+    const rolls = card.querySelector('.card-rolls').textContent;
+    const waLink = card.querySelector('.card-actions a').href;
+
+    modalImg.src = img;
+    modalTitle.textContent = `لزق رول إت - ${yards}`;
+    modalWeight.textContent = weight;
+    modalPrice.textContent = price;
+    modalRolls.textContent = rolls;
+    modalWaLink.href = waLink;
+
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent scroll
+}
+
+function closeModal() {
+    modal.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+// Global delegated listener for product cards
+document.addEventListener('click', (e) => {
+    const card = e.target.closest('.product-card');
+    if (!card) return;
+
+    // Open if clicked on image or details button
+    if (e.target.classList.contains('card-img') || e.target.classList.contains('view-details')) {
+        openModal(card);
+    }
+});
+
+if (modalClose) modalClose.addEventListener('click', closeModal);
+if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
+
+// Close on Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+});
