@@ -379,17 +379,22 @@ section {
 }
 
 .carousel-nav {
+    position: absolute;
+    top: 50%;
+    left: -15px;
+    right: -15px;
+    transform: translateY(-50%);
     display: flex;
-    justify-content: flex-end;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
+    justify-content: space-between;
+    pointer-events: none;
+    z-index: 10;
 }
 
 .nav-prev, .nav-next {
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
-    border: 1px solid var(--off-white);
+    border: 1px solid rgba(46, 125, 50, 0.2);
     background: var(--white);
     color: var(--green-primary);
     display: flex;
@@ -397,17 +402,28 @@ section {
     justify-content: center;
     cursor: pointer;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    pointer-events: auto;
 }
 
 .nav-prev:hover, .nav-next:hover {
     background: var(--green-primary);
     color: var(--white);
+    transform: scale(1.1);
 }
 
 @media (max-width: 768px) {
     .carousel-nav {
-        display: none;
+        left: -5px;
+        right: -5px;
     }
+    
+    .nav-prev, .nav-next {
+        width: 35px;
+        height: 35px;
+        opacity: 0.8;
+    }
+
     .carousel-container > * {
         flex: 0 0 85%;
     }

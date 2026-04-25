@@ -232,16 +232,22 @@ carouselConfigs.forEach(config => {
 
     let isPaused = false;
     
-    // Auto-scroll function
+    // RTL Auto-scroll function
     const autoScroll = () => {
         if (isPaused) return;
         
         const scrollAmount = container.firstElementChild.offsetWidth + 24;
         const maxScroll = container.scrollWidth - container.offsetWidth;
         
-        if (container.scrollLeft >= maxScroll - 10) {
+        // In RTL, scrollLeft goes from 0 (right) to negative maxScroll (left)
+        // Note: Some browsers use positive scrollLeft for RTL, but we handle the most common case
+        const currentScroll = Math.abs(container.scrollLeft);
+        
+        if (currentScroll >= maxScroll - 20) {
             container.scrollTo({ left: 0, behavior: 'smooth' });
         } else {
+            // In RTL, to move towards the left, we subtract from scrollLeft (or add if using positive logic)
+            // But scrollBy({left: amount}) with positive amount moves towards the left in RTL
             container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
         }
     };
@@ -261,12 +267,11 @@ carouselConfigs.forEach(config => {
     navButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             const scrollAmount = container.firstElementChild.offsetWidth + 24;
-            if (btn.classList.contains('nav-prev')) {
-                container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-            } else {
-                container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-            }
-            // Reset interval on manual click
+            // In RTL: nav-next should move left (positive value), nav-prev moves right (negative value)
+            const direction = btn.classList.contains('nav-next') ? scrollAmount : -scrollAmount;
+            
+            container.scrollBy({ left: direction, behavior: 'smooth' });
+            
             clearInterval(scrollInterval);
             scrollInterval = setInterval(autoScroll, config.speed);
         });
