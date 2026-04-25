@@ -360,9 +360,7 @@ section {
 .carousel-container {
     display: flex !important;
     flex-wrap: nowrap !important;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-behavior: smooth;
+    overflow-x: hidden;
     gap: 1.5rem;
     padding: 1rem 0.5rem 2rem;
     scrollbar-width: none;
@@ -375,7 +373,6 @@ section {
 
 .carousel-container > * {
     flex: 0 0 300px;
-    scroll-snap-align: start;
 }
 
 .carousel-nav {

@@ -218,62 +218,69 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Carousel System (Auto-scroll + Navigation)
+// Carousel System — Smooth Cinematic Continuous Scroll
 const carouselConfigs = [
-    { id: 'large-core-grid', speed: 3000 },
-    { id: 'small-core-grid', speed: 3200 },
-    { id: 'features-grid', speed: 3500 },
-    { id: 'industries-grid', speed: 3800 }
+    { id: 'large-core-grid', speed: 0.5 },
+    { id: 'small-core-grid', speed: 0.5 },
+    { id: 'features-grid', speed: 0.4 },
+    { id: 'industries-grid', speed: 0.4 }
 ];
 
 carouselConfigs.forEach(config => {
     const container = document.getElementById(config.id);
     if (!container) return;
 
+    // Duplicate children for seamless infinite loop
+    const children = Array.from(container.children);
+    children.forEach(child => {
+        const clone = child.cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        container.appendChild(clone);
+    });
+
     let isPaused = false;
-    
-    // RTL Auto-scroll function
-    const autoScroll = () => {
-        if (isPaused) return;
-        
-        const scrollAmount = container.firstElementChild.offsetWidth + 24;
-        const maxScroll = container.scrollWidth - container.offsetWidth;
-        
-        // In RTL, scrollLeft goes from 0 (right) to negative maxScroll (left)
-        // Note: Some browsers use positive scrollLeft for RTL, but we handle the most common case
-        const currentScroll = Math.abs(container.scrollLeft);
-        
-        if (currentScroll >= maxScroll - 20) {
-            container.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-            // In RTL, to move towards the left, we subtract from scrollLeft (or add if using positive logic)
-            // But scrollBy({left: amount}) with positive amount moves towards the left in RTL
-            container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    let scrollPos = 0;
+    const totalOriginalWidth = children.reduce((sum, child) => {
+        return sum + child.offsetWidth + 24; // width + gap
+    }, 0);
+
+    // Smooth continuous scroll via requestAnimationFrame
+    const smoothScroll = () => {
+        if (!isPaused) {
+            scrollPos += config.speed;
+            
+            // Reset when we've scrolled past the original content
+            if (scrollPos >= totalOriginalWidth) {
+                scrollPos -= totalOriginalWidth;
+            }
+            
+            container.scrollLeft = scrollPos;
         }
+        requestAnimationFrame(smoothScroll);
     };
 
-    let scrollInterval = setInterval(autoScroll, config.speed);
+    requestAnimationFrame(smoothScroll);
 
     // Pause on interaction
     container.addEventListener('mouseenter', () => isPaused = true);
     container.addEventListener('mouseleave', () => isPaused = false);
-    container.addEventListener('touchstart', () => isPaused = true);
+    container.addEventListener('touchstart', () => isPaused = true, { passive: true });
     container.addEventListener('touchend', () => {
-        setTimeout(() => isPaused = false, 2000);
-    });
+        setTimeout(() => isPaused = false, 3000); // Resume after 3s
+    }, { passive: true });
 
-    // Button controls
+    // Arrow button controls — jump one card smoothly
     const navButtons = document.querySelectorAll(`.carousel-nav button[data-target="${config.id}"]`);
     navButtons.forEach(btn => {
         btn.addEventListener('click', () => {
-            const scrollAmount = container.firstElementChild.offsetWidth + 24;
-            // In RTL: nav-next should move left (positive value), nav-prev moves right (negative value)
-            const direction = btn.classList.contains('nav-next') ? scrollAmount : -scrollAmount;
-            
-            container.scrollBy({ left: direction, behavior: 'smooth' });
-            
-            clearInterval(scrollInterval);
-            scrollInterval = setInterval(autoScroll, config.speed);
+            const cardWidth = children[0].offsetWidth + 24;
+            if (btn.classList.contains('nav-next')) {
+                scrollPos += cardWidth;
+            } else {
+                scrollPos -= cardWidth;
+                if (scrollPos < 0) scrollPos += totalOriginalWidth;
+            }
+            container.scrollTo({ left: scrollPos, behavior: 'smooth' });
         });
     });
 });
