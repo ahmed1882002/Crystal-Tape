@@ -214,73 +214,87 @@ window.addEventListener('scroll', () => {
         header.style.background = 'rgba(255, 255, 255, 0.9)';
     } else {
         header.style.padding = '1rem 0';
-        header.style.background = 'rgba(255, 255, 255, 0.7)';
     }
 });
 
-// Carousel System — Smooth Cinematic Continuous Scroll
+// Carousel System — Cinematic Smooth JS Scroll (Native Scroll)
 const carouselConfigs = [
-    { id: 'large-core-grid', speed: 0.5 },
-    { id: 'small-core-grid', speed: 0.5 },
-    { id: 'features-grid', speed: 0.4 },
-    { id: 'industries-grid', speed: 0.4 }
+    { id: 'large-core-grid', speed: 1 },
+    { id: 'small-core-grid', speed: 1 },
+    { id: 'features-grid', speed: 0.8 },
+    { id: 'industries-grid', speed: 0.7 }
 ];
 
 carouselConfigs.forEach(config => {
     const container = document.getElementById(config.id);
     if (!container) return;
 
-    // Duplicate children for seamless infinite loop
-    const children = Array.from(container.children);
-    children.forEach(child => {
-        const clone = child.cloneNode(true);
+    // Remove any existing clones first to avoid duplicates
+    container.querySelectorAll('.clone').forEach(el => el.remove());
+
+    // Clone items for infinite loop
+    const originalItems = Array.from(container.children);
+    originalItems.forEach(item => {
+        const clone = item.cloneNode(true);
+        clone.classList.add('clone');
         clone.setAttribute('aria-hidden', 'true');
         container.appendChild(clone);
     });
 
-    let isPaused = false;
-    let scrollPos = 0;
-    const totalOriginalWidth = children.reduce((sum, child) => {
-        return sum + child.offsetWidth + 24; // width + gap
-    }, 0);
+    let isInteracting = false;
+    let rafId = null;
 
-    // Smooth continuous scroll via requestAnimationFrame
-    const smoothScroll = () => {
-        if (!isPaused) {
-            scrollPos += config.speed;
-            
-            // Reset when we've scrolled past the original content
-            if (scrollPos >= totalOriginalWidth) {
-                scrollPos -= totalOriginalWidth;
+    const animate = () => {
+        if (!isInteracting) {
+            const itemWidth = originalItems[0].offsetWidth + 24; // Width + gap
+            const totalWidth = itemWidth * originalItems.length;
+
+            // In RTL, scrollLeft is usually 0 at the right.
+            // To move towards the left, we subtract from scrollLeft (move into negatives).
+            // The user wants it "reversed", so let's try moving it "forwards" first.
+            // Direction: Moving towards the left.
+            container.scrollLeft -= config.speed;
+
+            // Loop logic: If we've scrolled past the original content, reset to 0
+            if (Math.abs(container.scrollLeft) >= totalWidth) {
+                container.scrollLeft = 0;
             }
-            
-            container.scrollLeft = scrollPos;
         }
-        requestAnimationFrame(smoothScroll);
+        rafId = requestAnimationFrame(animate);
     };
 
-    requestAnimationFrame(smoothScroll);
-
     // Pause on interaction
-    container.addEventListener('mouseenter', () => isPaused = true);
-    container.addEventListener('mouseleave', () => isPaused = false);
-    container.addEventListener('touchstart', () => isPaused = true, { passive: true });
-    container.addEventListener('touchend', () => {
-        setTimeout(() => isPaused = false, 3000); // Resume after 3s
-    }, { passive: true });
+    const pause = () => isInteracting = true;
+    const resume = () => {
+        setTimeout(() => {
+            isInteracting = false;
+        }, 2000);
+    };
 
-    // Arrow button controls — jump one card smoothly
+    container.addEventListener('mouseenter', pause);
+    container.addEventListener('mouseleave', resume);
+    container.addEventListener('touchstart', pause, { passive: true });
+    container.addEventListener('touchend', resume, { passive: true });
+    container.addEventListener('mousedown', pause);
+    window.addEventListener('mouseup', resume);
+
+    // Start animation
+    rafId = requestAnimationFrame(animate);
+
+    // Arrow Controls
     const navButtons = document.querySelectorAll(`.carousel-nav button[data-target="${config.id}"]`);
     navButtons.forEach(btn => {
         btn.addEventListener('click', () => {
-            const cardWidth = children[0].offsetWidth + 24;
-            if (btn.classList.contains('nav-next')) {
-                scrollPos += cardWidth;
-            } else {
-                scrollPos -= cardWidth;
-                if (scrollPos < 0) scrollPos += totalOriginalWidth;
-            }
-            container.scrollTo({ left: scrollPos, behavior: 'smooth' });
+            const cardWidth = originalItems[0].offsetWidth + 24;
+            // In RTL, to go "next" (left), we subtract. To go "prev" (right), we add.
+            const direction = btn.classList.contains('nav-next') ? -cardWidth : cardWidth;
+            
+            isInteracting = true;
+            container.scrollBy({ left: direction, behavior: 'smooth' });
+            
+            setTimeout(() => {
+                isInteracting = false;
+            }, 3000);
         });
     });
 });

@@ -360,19 +360,28 @@ section {
 .carousel-container {
     display: flex !important;
     flex-wrap: nowrap !important;
-    overflow-x: hidden;
-    gap: 1.5rem;
-    padding: 1rem 0.5rem 2rem;
+    align-items: flex-start;
+    overflow-x: auto;
+    width: 100%;
+    position: relative;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    cursor: grab;
+    gap: 1.5rem;
+    padding: 1rem 0.5rem 2rem;
 }
 
 .carousel-container::-webkit-scrollbar {
     display: none;
 }
 
+.carousel-container:active {
+    cursor: grabbing;
+}
+
 .carousel-container > * {
-    flex: 0 0 300px;
+    flex: 0 0 300px; /* Preserve card width */
+    max-width: 300px;
 }
 
 .carousel-nav {
